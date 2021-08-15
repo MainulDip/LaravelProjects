@@ -10,13 +10,19 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
-<body class="bg-gray-400">
-    <nav class="p-6 bg-white flex justify-between">
-        <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">Portfolio</a></li>
-            <li><a href="">Friends</a></li>
-            <li><a href="">Blog</a></li>
+<body class="bg-gray-200">
+    <nav class="p-6 bg-white flex justify-between mb-6">
+        <ul class="flex items-center">
+            <li class=""><a class="p-3" href="">Home</a></li>
+            <li class=""><a class="p-3" href="">Portfolio</a></li>
+            <li class=""><a class="p-3" href="">Friends</a></li>
+            <li class=""><a class="p-3" href="">Blog</a></li>
+        </ul>
+        <ul class="flex items-center">
+            <li class=""><a class="p-3" href="">User's Name</a></li>
+            <li class=""><a class="p-3" href="">Loagin</a></li>
+            <li class=""><a class="p-3" href="">Register</a></li>
+            <li class=""><a class="p-3" href="">Logout</a></li>
         </ul>
     </nav>
     @yield('content')
