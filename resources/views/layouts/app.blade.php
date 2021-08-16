@@ -21,7 +21,7 @@
         <ul class="flex items-center">
             <li class=""><a class="p-3" href="">User's Name</a></li>
             <li class=""><a class="p-3" href="">Loagin</a></li>
-            <li class=""><a class="p-3" href="">Register</a></li>
+            <li class=""><a class="p-3" href="{{ route('registers') }}">Registers</a></li>
             <li class=""><a class="p-3" href="">Logout</a></li>
         </ul>
     </nav>
