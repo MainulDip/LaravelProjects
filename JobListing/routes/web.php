@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/hello', function(){
+    return response("Hello World", 200)
+    -> header('Content-Type', 'text/plain')
+    -> header('foo', 'bar');
+});
