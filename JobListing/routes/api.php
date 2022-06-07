@@ -14,6 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// localhost:8000/api/posts
+Route::get('/posts', function(){
+    return response()->json([
+        'posts' => [
+            [
+                'title' => 'Fist Post',
+                'body' => 'Some Description First'
+            ],
+            [
+                'title' => 'Second Post',
+                'body' => 'Second Description'
+            ]
+        ]
+    ]);
+});
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

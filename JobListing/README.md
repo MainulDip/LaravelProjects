@@ -1,64 +1,161 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Laravel Quick Docs:
+After the setup with composer.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Routing:
 
-## About Laravel
+1. routes/web.php
+    It's for web + frontend routing
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+```php
+Route::get('/', function () {
+    return view('welcome');
+});
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Route::get('/hello', function(){
+    return response("Hello World", 200)
+    -> header('Content-Type', 'text/plain')
+    -> header('foo', 'bar');
+});
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+// http://localhost:8000/post/12
+Route::get('/post/{id}', function($id){
+    // ddd($id); // die and dump and debug
+    return response('Post '. $id);
+}) -> where('id', '[0-9]+'); // checking url params by regex
 
-## Learning Laravel
+// localhost:8000/search?name=SomeName&city=Where
+Route::get('/search', function (Request $request) {
+    echo $request->name . " " . $request->city;
+    dd($request);
+});
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. routes/api.php
+    API focused routing
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```php
+    // localhost:8000/api/posts
+Route::get('/posts', function(){
+    return response()->json([
+        'posts' => [
+            [
+                'title' => 'Fist Post',
+                'body' => 'Some Description First'
+            ],
+            [
+                'title' => 'Second Post',
+                'body' => 'Second Description'
+            ]
+        ]
+    ]);
+});
+```
+3. channels.php
+4. console.php
 
-## Laravel Sponsors
+### Sending Data From Route to View:
+```php
+// routes/web.php
+Route::get('/', function () {
+    return view('listing', [
+        'heading' => 'Latest Listing',
+        'Listings' => [
+            [
+                'id' => 1,
+                'title' => 'Listing One',
+                'description' => 'Some Description Goes here',
+            ],
+            [
+                'id' => 2,
+                'title' => 'Listing Two',
+                'description' => 'Second Description Goes here',
+            ],
+        ],
+    ]);
+});
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+// resources/views/listing.php
+<h1> <?php echo $heading; ?> </h1>
+<?php foreach ($listings as $listing): ?>
+    <h2><?php echo $listing['title']; ?> </h2>
+    <p><?php echo $listing['description']; ?> </p>
+<?php endforeach; ?>
 
-### Premium Partners
+// Utilizing blade templating to reduce extra markup
+// resources/views/listing.blade.php
+<h1> {{$heading}}</h1>
+@foreach ($listings as $listing) 
+    <h2>{{$listing['title']}}</h2>
+    <p>{{$listing['description']}}</p>
+@endforeach
+// directive starts with @ sign
+// there is also @php raw php @endphp
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
-## Contributing
+### Blade Templating:
+```php
+@if(count($listing) == 0)
+<p> No Listing Found </p>
+@endif
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+// unless directive
+@unless (count($listings) == 0)
 
-## Code of Conduct
+@foreach ($listings as $listing) 
+    <h2>{{$listing['title']}}</h2>
+    <p>{{$listing['description']}}</p>
+@endforeach
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+@else
+<h2>No Listing Found</h2>
+@endunless
+```
 
-## Security Vulnerabilities
+### Model/Database Mapper:
+Laravel use Eloqoent ORM (Object Relational Mapper with database)
+Model Name Should Be Singular
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```php
+// Defining Model
+namespace App\Models;
 
-## License
+class Listing
+{
+    public static function all()
+    {
+        return [
+            [
+                'id' => 1,
+                'title' => 'Listing One',
+                'description' => 'Some Description Goes here',
+            ],
+            [
+                'id' => 2,
+                'title' => 'Listing Two',
+                'description' => 'Second Description Goes here',
+            ],
+        ];
+    }
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    public static function find($id)
+    {
+        $listings = self::all();
+
+        foreach ($listings as $listing) {
+            if ($listing['id'] == $id) {
+                return [$listing];
+            }
+        }
+    }
+}
+
+// Using Model
+use App\Models\Listing;
+// call the method (static)
+'listings' => Listing::all()
+'listings' => Listing::find($id)
+```
+
+
+### Artisan Commands:
