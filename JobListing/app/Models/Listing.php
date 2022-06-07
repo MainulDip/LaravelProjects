@@ -25,7 +25,7 @@ class Listing
 
         foreach ($listings as $listing) {
             if ($listing['id'] == $id) {
-                return [$listing];
+                return $listing;
             }
         }
     }
