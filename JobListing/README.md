@@ -179,3 +179,21 @@ Migrate with seed/factory data: php artisan migrate --seed
 php artisan make:model Listing
 ```
 NB: Model is Singular and Capitalize
+
+### Add Fake Data Using Seed:
+```php
+// database/seeders/DatabaseSeeder.php
+\App\Models\User::factory(10)->create();
+Listing::create(
+    [
+        'title' => 'Laravel Senior Developer', 
+        'tags' => 'laravel, javascript',
+        'company' => 'Acme Corp',
+        'location' => 'Boston, MA',
+        'email' => 'email1@email.com',
+        'website' => 'https://www.acme.com',
+        'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam minima et illo reprehenderit quas possimus voluptas repudiandae cum expedita, eveniet aliquid, quam illum quaerat consequatur! Expedita ab consectetur tenetur delensiti?'
+    ]
+);
+```
+> Then run "php artisan migrate:refresh --seed"
