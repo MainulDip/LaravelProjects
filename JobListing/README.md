@@ -158,4 +158,6 @@ use App\Models\Listing;
 ```
 
 
-### Artisan Commands:
+### Migration:
+To create a table named "listing" in database/migrations queue
+> php artisan make:migration create_listing_table

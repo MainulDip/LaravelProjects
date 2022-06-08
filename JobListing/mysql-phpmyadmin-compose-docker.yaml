@@ -1,0 +1,39 @@
+#version: '3.9' # optional
+
+services: # required
+  # Database
+
+  db:
+    image: mysql:8.0.27
+    volumes:
+      - mysql-laravel-volume:/var/lib/mysql
+    restart: always
+    ports:
+      - 8001:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: joblistinglaravel
+      MYSQL_USER: laraveljobadmin
+      MYSQL_PASSWORD: laravel
+    networks:
+      - network-mysql-laravel
+
+  phpmyadmin:
+    image: phpmyadmin:5.1.1-apache
+    depends_on:
+     - db
+    restart: always
+    ports:
+     - 8002:80
+    environment:
+     - PMA_ARBITRARY=1
+     - UPLOAD_LIMIT=300M
+    networks:
+     - network-mysql-laravel
+
+networks:
+  network-mysql-laravel:
+volumes:
+  mysql-laravel-volume:
+
+  # docker-compose -f mysql-phpmyadmin-compose-docker.yaml up -d && php artisan serve
