@@ -117,7 +117,7 @@ Laravel use Eloqoent ORM (Object Relational Mapper with database)
 Model Name Should Be Singular
 
 ```php
-// Defining Model
+// Defining Model Manualy
 namespace App\Models;
 
 class Listing
@@ -158,6 +158,24 @@ use App\Models\Listing;
 ```
 
 
-### Migration:
-To create a table named "listing" in database/migrations queue
-> php artisan make:migration create_listing_table
+### Migration: Table name singular
+To create a table named "listings" in database/migrations queue
+> php artisan make:migration create_listings_table || Table name "plural + lowercase"
+
+```bash
+php artisan migrate || migrate:fresh
+```
+
+### Seeding & Factory:
+To quickly create Fake data for testing. Uncomment "\App\Models\User::factory(10)->create();" From database/seeders/DatabaseSeeder.php and run
+> php artisan db:seed || This will populate the database user table
+
+Note: factory method is comming from database/factories/UserFactory.php
+Delete the seed/factory data: php artisan migrate:refresh
+Migrate with seed/factory data: php artisan migrate --seed
+
+### Automatic Model Creation:
+```bash
+php artisan make:model Listing
+```
+NB: Model is Singular and Capitalize
