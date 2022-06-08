@@ -197,3 +197,35 @@ Listing::create(
 );
 ```
 > Then run "php artisan migrate:refresh --seed"
+
+### Factory:
+cmd: php artisan make:factory ListingFactory || this will create a ListingFactory class inside database/factories
+
+Write factory method for ListingFactory inside database/factories/Listingfactory.php
+```php
+class ListingFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition()
+    {
+        return [
+            'title' => $this->faker->sentence(),
+            'tags' => 'laravel, api, backend',
+            'company' => $this->faker->company(),
+            'email' => $this->faker->companyEmail(),
+            'website' => $this->faker->url(),
+            'location' => $this->faker->city(),
+            'description' => $this->faker->paragraph(7)
+        ];
+    }
+}
+```
+Then call the factory method from inside run method of database/seeders/DatabaseSeeder.php
+```php
+Listing::factory(7)->create();
+```
+Then run: php artisan migrate:refresh --seed
