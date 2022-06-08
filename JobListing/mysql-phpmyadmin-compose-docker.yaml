@@ -37,3 +37,6 @@ volumes:
   mysql-laravel-volume:
 
   # docker-compose -f mysql-phpmyadmin-compose-docker.yaml up -d && php artisan serve
+  # docker volume rm joblisting_mysql-laravel-volume
+  # make pdo mysql enable in tools/php.8.1/php.ini
+  # volume needs to be deleted if compose mysql config changes
