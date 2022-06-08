@@ -242,3 +242,33 @@ To maintain no-repetation (DRY), laravel use @yield(), @extends(), @section dire
 @section('content') // between this is marked as content for @yield('content) section
 @endsection
 ```
+
+### Partials in View:
+Partials are another way of including chunk of blade code into another view
+
+### Route Model Binding:
+Minimize boilerplate code using Eloquents "Route Model Binding"
+```php
+// Single Listing without Route Model Binding
+Route::get('/listing/{id}', function ($id) {
+    $single_listing = Listing::find($id);
+
+    if ($single_listing) {
+        return view('listing', [
+            'heading' => 'Latest Listing',
+            'listing' => $single_listing,
+        ]);
+    } else {
+        abort('404');
+    }
+});
+
+// Using Route Model Binding Single Listing
+Route::get('/listing/{listing}', function(Listing $listing){
+    // get's url param {listing} should match actions function's param variable (Model $listing)
+    return view('listing', [
+        'heading' => 'Latest Listing',
+        'listing' => $listing
+    ]);
+});
+```

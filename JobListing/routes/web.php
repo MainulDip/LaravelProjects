@@ -15,21 +15,34 @@ use App\Models\Listing;
 |
 */
 
-
 // All Listing
 Route::get('/', function () {
     return view('listings', [
         'heading' => 'Latest Listing',
-        'listings' => Listing::all()
+        'listings' => Listing::all(),
     ]);
 });
 
 // Single Listing
+// Route::get('/listing/{id}', function ($id) {
+//     $single_listing = Listing::find($id);
 
-Route::get('/listing/{id}', function($id){
+//     if ($single_listing) {
+//         return view('listing', [
+//             'heading' => 'Latest Listing',
+//             'listing' => $single_listing,
+//         ]);
+//     } else {
+//         abort('404');
+//     }
+// });
+
+// Route Model Binding Single Listing
+Route::get('/listing/{listing}', function(Listing $listing){
+    // get's url param {listing} should match actions function's param variable (Model $listing)
     return view('listing', [
         'heading' => 'Latest Listing',
-        'listing' => Listing::find($id)
+        'listing' => $listing
     ]);
 });
 
