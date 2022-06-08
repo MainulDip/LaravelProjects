@@ -229,3 +229,16 @@ Then call the factory method from inside run method of database/seeders/Database
 Listing::factory(7)->create();
 ```
 Then run: php artisan migrate:refresh --seed
+
+### Layout Creation:
+To maintain no-repetation (DRY), laravel use @yield(), @extends(), @section directives as follow.
+```php
+@yield('content') // inside layout.blade.php
+```
+```php
+// inside other view files
+@extends('layout') // this to mark as layout.blade.php file's extender
+
+@section('content') // between this is marked as content for @yield('content) section
+@endsection
+```
