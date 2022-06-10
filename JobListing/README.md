@@ -246,6 +246,13 @@ To maintain no-repetation (DRY), laravel use @yield(), @extends(), @section dire
 ### Partials in View:
 Partials are another way of including chunk of blade code into another view
 
+```bash
+# creating partials inside resources/view
+mkdir partials && cd partials && touch _filename.blade.php
+# convention is to prefix partials name with "_" underscore
+# put any html php or blade code there and 
+```
+
 ### Route Model Binding:
 Minimize boilerplate code using Eloquents "Route Model Binding"
 ```php
@@ -275,3 +282,21 @@ Route::get('/listing/{listing}', function(Listing $listing){
 
 ### Eloquont Model Collection:
 > $listing['title'] could be $listing->title
+
+### Global helpers:
+asset helper : {{asset('images/logo.png')}}
+> https://laravel.com/docs/9.x/helpers
+
+### Componet and Props Binding:
+```php
+# create component folders and put our required props inside @props directive
+@props(['propsname'])
+// ...php/blade code
+```
+Including Component:
+```php
+@foreach ($listings as $listing)
+ <x-listing-card :listing="$listing" />
+ # for passing variable use ":" colon before propsname (variable binding)
+@endforeach
+```
