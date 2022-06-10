@@ -272,3 +272,6 @@ Route::get('/listing/{listing}', function(Listing $listing){
     ]);
 });
 ```
+
+### Eloquont Model Collection:
+> $listing['title'] could be $listing->title
