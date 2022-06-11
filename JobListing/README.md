@@ -309,6 +309,7 @@ Including Component:
 
 
 ### Component inside Component || Slot and Other:
+Note: attributes merging
 ```php
 // component of container component
 <div {{$attributes->merge(['class' => 'bg-gray-50 border border-gray-200 rounded p-6'])}}>
@@ -317,7 +318,7 @@ Including Component:
 </div>
 
 
-// Componetn container
+// listing-card || Componetn container
 <x-card>
     <x-slot name="something">
         Hello {{-- this will the value of the $something --}}
@@ -327,4 +328,11 @@ Including Component:
         This div will be replaced with the $slot variable
     </div>
 </x-card>
+
+// from view we can use card component separately
+<x-component-name class="class will me merged">
+
+// also we can use listing-card component which also includes the card component. Pass props, etc
+<x-listing-card :listing="$listing" />
+
 ```
