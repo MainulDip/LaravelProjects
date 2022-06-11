@@ -287,7 +287,13 @@ Route::get('/listing/{listing}', function(Listing $listing){
 asset helper : {{asset('images/logo.png')}}
 > https://laravel.com/docs/9.x/helpers
 
-### Componet and Props Binding:
+### Componets, slot and Props Binding:
+create manually inside resources/views/components directory or to create class based component use "php artisan make:component ComponentName" or withind subdirectories "php artisan make:component Forms/Input"
+
+for anonymous component use "php artisan make:component forms.input --view", The command above will create a Blade file at resources/views/components/forms/input.blade.php which can be rendered as a component via <x-forms.input />.
+
+components are automatically discovered within the app/View/Components directory and resources/views/components directory, so no component registration is required. But outside this directories, need registering in App/Providers/AppServiceProvider.php 's boot method.
+Docs: https://laravel.com/docs/9.x/blade#components
 ```php
 # create component folders and put our required props inside @props directive
 @props(['propsname'])
@@ -299,4 +305,26 @@ Including Component:
  <x-listing-card :listing="$listing" />
  # for passing variable use ":" colon before propsname (variable binding)
 @endforeach
+```
+
+
+### Component inside Component || Slot and Other:
+```php
+// component of container component
+<div {{$attributes->merge(['class' => 'bg-gray-50 border border-gray-200 rounded p-6'])}}>
+{{$slot}}
+<h1>Other than slot: {{$something}}</h1>
+</div>
+
+
+// Componetn container
+<x-card>
+    <x-slot name="something">
+        Hello {{-- this will the value of the $something --}}
+    </x-slot>
+    <x-slot name="slot"> {{-- this is optional as its the default senario --}}
+    <div>
+        This div will be replaced with the $slot variable
+    </div>
+</x-card>
 ```

@@ -1,6 +1,10 @@
 @props(['listing'])
 
-<div class="bg-gray-50 border border-gray-200 rounded p-6">
+<x-card>
+    <x-slot name="something">
+        Hello {{-- this will the value of the $something --}}
+    </x-slot>
+    <x-slot name="slot">
     <div class="flex">
         <img class="hidden w-48 mr-6 md:block" src="{{ asset('images/no-image.png') }}" alt="" />
         <div>
@@ -27,4 +31,5 @@
             </div>
         </div>
     </div>
-</div>
+    </x-slot>
+</x-card>
