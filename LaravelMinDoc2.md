@@ -30,7 +30,9 @@ Topics covered:
 instade of layout with @yield and using that inside template by include + section, we can use it like Components file by "{{$slot}}" and <x-layout> respectedly
 
 
-### 2. Custom Tags Filter Using Model Controller
+### 2. Custom Tags Filter Using Model Controller and Query Scope
+Query Scope allowes easily re-use query logic in your models. To define a scope, simply prefix a model method with scope. Note the naiming convention
+docs : https://laravel.com/docs/5.0/eloquent#query-scopes
 ```php
 // Controller Function
 // Show all listings
@@ -39,12 +41,14 @@ instade of layout with @yield and using that inside template by include + sectio
         return view('listings.index', [
             'heading' => 'Latest Listing',
             'listings' => Listing::latest()->filter(
+                // anything passed here will be available to the second argument of the scopeFilter method inside model
                 request(['tag'])
             )->get(),
         ]);
     }
 
 // Model -> Listing
+// controller chaining method will be the rest of the word after "scope"
 public function scopefilter($query, array $filters){
         // dd($filters);
         if($filters['tag'] ?? false){
