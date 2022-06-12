@@ -339,3 +339,68 @@ Note: attributes merging
 
 ### Controlller:
 "php artisan make:controller ControllerName" will create the controller class into app/Http/Controllers . The naming convension is CamelCase
+
+```php
+// route to controller
+
+// All Listings
+Route::get('/', [ListingController::class, 'index']);
+
+// Single Listing Route Model Binding Single Listing
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
+
+// app/Http/Controllers/ListingController.php
+class ListingController extends Controller
+{
+    // Show all listings
+    public function index() {
+        return view('listings', [
+            'heading' => 'Latest Listing',
+            'listings' => Listing::all(),
+        ]);
+    }
+
+    // Show single listing
+    public function show(Listing $listing) {
+        return view('listing', [ // if views in subfolder then use "." for navigating like "directory.filename"
+            'heading' => 'Latest Listing',
+            'listing' => $listing
+        ]);
+    }
+}
+```
+
+### Dependancy Injection Inside Controller:
+```php
+public function index(Request $request) {
+        dd($request);
+        return view('listings.index', [
+            'heading' => 'Latest Listing',
+            'listings' => Listing::all(),
+        ]);
+    }
+```
+
+### Custom Model Function:
+```php
+// Controller Function
+// Show all listings
+    public function index(Request $request) {
+        // dd($request);
+        return view('listings.index', [
+            'heading' => 'Latest Listing',
+            'listings' => Listing::latest()->filter(
+                request(['tag'])
+            )->get(),
+        ]);
+    }
+
+// Model -> Listing
+public function scopefilter($query, array $filters){
+        // dd($filters);
+        if($filters['tag'] ?? false){
+            // request() method is global
+            $query->where('tags', 'like', '%' . request('tag'). '%'); 
+        }
+    }
+```
