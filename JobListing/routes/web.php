@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Listing;
@@ -16,12 +17,7 @@ use App\Models\Listing;
 */
 
 // All Listing
-Route::get('/', function () {
-    return view('listings', [
-        'heading' => 'Latest Listing',
-        'listings' => Listing::all(),
-    ]);
-});
+Route::get('/', [ListingController::class, 'index']);
 
 // Single Listing
 // Route::get('/listing/{id}', function ($id) {
@@ -38,13 +34,7 @@ Route::get('/', function () {
 // });
 
 // Route Model Binding Single Listing
-Route::get('/listing/{listing}', function(Listing $listing){
-    // get's url param {listing} should match actions function's param variable (Model $listing)
-    return view('listing', [
-        'heading' => 'Latest Listing',
-        'listing' => $listing
-    ]);
-});
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
 Route::get('/hello', function () {
     return response('Hello World', 200)

@@ -336,3 +336,6 @@ Note: attributes merging
 <x-listing-card :listing="$listing" />
 
 ```
+
+### Controlller:
+"php artisan make:controller ControllerName" will create the controller class into app/Http/Controllers . The naming convension is CamelCase
