@@ -1,0 +1,150 @@
+## Laravel mini dock part 2:
+Topics covered:
+
+ 1. Layout file as Component
+ 2. Custom Tags Filter Using Model Controller
+ 3. Search Filter Using Model Controller
+ 4. Clockwork Package
+ 5. Create Listing Form
+ 6. Validation & Store Listing
+ 7. Mass Assignment Rule
+ 8. Flash Messages
+ 9. Alpine.js For Message Removal
+ 10. Keep Old Data In Form
+ 11. Pagination
+ 12. File Upload
+ 13. Edit Listing
+ 14. Delete Listing
+ 15. User Registration
+ 16. Auth Links
+ 17. User Logout
+ 18. User Login
+ 19. Auth & Guest Middleware
+ 20. Relationships
+ 21. Tinker Tinkering
+ 22. Add Ownership to Listings
+ 23. Manage Listings Page
+ 24. User Authorization
+
+### 1. Layout file as Component
+instade of layout with @yield and using that inside template by include + section, we can use it like Components file by "{{$slot}}" and <x-layout> respectedly
+
+
+### 2. Custom Tags Filter Using Model Controller
+```php
+// Controller Function
+// Show all listings
+    public function index(Request $request) {
+        // dd($request);
+        return view('listings.index', [
+            'heading' => 'Latest Listing',
+            'listings' => Listing::latest()->filter(
+                request(['tag'])
+            )->get(),
+        ]);
+    }
+
+// Model -> Listing
+public function scopefilter($query, array $filters){
+        // dd($filters);
+        if($filters['tag'] ?? false){
+            // request() method is global
+            $query->where('tags', 'like', '%' . request('tag'). '%'); 
+        }
+    }
+```
+
+
+### 3. Search Filter Using Model Controller
+```php
+// Inside ListingController.php
+// Show all listings
+    public function index(Request $request) {
+        // dd($request);
+        return view('listings.index', [
+            'heading' => 'Latest Listing',
+            'listings' => Listing::latest()->filter(
+                request(['tag', 'search'])
+            )->get(),
+        ]);
+    }
+
+
+// Listing Model
+public function scopefilter($query, array $filters){
+        // dd($filters);
+        if($filters['tag'] ?? false){
+            // request() method is global
+            $query->where('tags', 'like', '%' . request('tag'). '%'); 
+        }
+
+        if($filters['search'] ?? false) {
+            $query->where('title', 'like', '%' . request('search'). '%')
+            ->orWhere('description', 'like', '%' . request('search'). '%')
+            ->orWhere('tags', 'like', '%' . request('search'). '%');
+        }
+    }
+```
+
+
+### 4. Clockwork Package
+
+
+### 5. Create Listing Form
+
+
+### 6. Validation & Store Listing
+
+
+### 7. Mass Assignment Rule
+
+
+### 8. Flash Messages
+
+
+### 9. Alpine.js For Message Removal
+
+
+### 10. Keep Old Data In Form
+
+
+### 11. Pagination
+
+
+### 12. File Upload
+
+
+### 13. Edit Listing
+
+
+### 14. Delete Listing
+
+
+### 15. User Registration
+
+
+### 16. Auth Links
+
+
+### 17. User Logout
+
+
+### 18. User Login
+
+
+### 19. Auth & Guest Middleware
+
+
+### 20. Relationships
+
+
+### 21. Tinker Tinkering
+
+
+### 22. Add Ownership to Listings
+
+
+### 23. Manage Listings Page
+
+
+### 24. User Authorization
