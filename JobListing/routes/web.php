@@ -33,7 +33,11 @@ Route::get('/', [ListingController::class, 'index']);
 //     }
 // });
 
+// Create job form
 Route::get('/listings/create',[ListingController::class, 'create']);
+
+// Storing newly submittend form data for job creation over POST
+Route::post('/listings', [ListingController::class, 'store']);
 
 // Route Model Binding Single Listing
 Route::get('/listings/{listing}', [ListingController::class, 'show']);

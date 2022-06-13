@@ -99,6 +99,7 @@ after the cohore extion and composer require, it should work out of the box
 
 ### 5. Create Listing Form
 Adding Functionality Workflow > New Route -> New Controller Method -> New View
+NB: Sending Form data over POST method requires @csrf directive inside form tag.
 
 ### 6. Validation & Store Listing
 

@@ -35,4 +35,9 @@ class ListingController extends Controller
     public function create(){
         return view('listings.create');
     }
+
+    // Store/Save newly submitten Job Creation Data
+    public function store(Request $request){
+        dd($request);
+    }
 }
