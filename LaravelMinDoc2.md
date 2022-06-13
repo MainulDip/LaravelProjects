@@ -92,10 +92,13 @@ public function scopefilter($query, array $filters){
 
 
 ### 4. Clockwork Package
+Also Chrome Extension.
+Install : composer require itsgoingd/clockwork
+after the cohore extion and composer require, it should work out of the box
 
 
 ### 5. Create Listing Form
-
+Adding Functionality Workflow > New Route -> New Controller Method -> New View
 
 ### 6. Validation & Store Listing
 

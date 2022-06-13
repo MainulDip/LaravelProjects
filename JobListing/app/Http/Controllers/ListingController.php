@@ -9,6 +9,11 @@ class ListingController extends Controller
 {
     // Show all listings
     public function index(Request $request) {
+        // echo "hello";
+        // echo $request->getRequestUri();
+        // echo request('DOCUMENT_ROOT');
+        // echo $request->search;
+        // var_dump($request->server);
         // dd($request);
         return view('listings.index', [
             'heading' => 'Latest Listing',
@@ -24,5 +29,10 @@ class ListingController extends Controller
             'heading' => 'Latest Listing',
             'listing' => $listing
         ]);
+    }
+
+    // Create Jobs
+    public function create(){
+        return view('listings.create');
     }
 }
