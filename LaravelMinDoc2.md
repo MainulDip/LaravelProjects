@@ -1,6 +1,7 @@
 ## Laravel mini dock part 2:
-Topics covered:
-
+Check the laravel app lifecycle at https://laravel.com/docs/9.x/lifecycle
+ 
+Topics: 
  1. Layout file as Component
  2. Custom Tags Filter Using Model Controller
  3. Search Filter Using Model Controller
@@ -101,7 +102,8 @@ after the cohore extion and composer require, it should work out of the box
 Adding Functionality Workflow > New Route -> New Controller Method -> New View
 NB: Sending Form data over POST method requires @csrf directive inside form tag.
 
-### 6. Validation & Store Listing
+### 6. Validation, Request & Store Listing
+docs: https://laravel.com/docs/9.x/requests && https://laravel.com/docs/9.x/validation
 
 
 ### 7. Mass Assignment Rule
