@@ -38,6 +38,11 @@ class ListingController extends Controller
 
     // Store/Save newly submitten Job Creation Data
     public function store(Request $request){
-        dd($request);
+        // dd($request);
+        $formFields = $request->validate([
+            'title' => 'required',
+            // 'company' => ['required', Rule::unique('listings', 'company')],
+
+        ]);
     }
 }
