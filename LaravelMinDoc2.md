@@ -133,7 +133,21 @@ protected $fillable = ['title', 'company', 'location', 'email', 'website', 'tags
 ```
 
 ### 8. Flash Messages
+```php
+Session::flash('message', 'Listing Created');
+// OR
+return redirect('/')->with('message', 'Listing Created Successfully');
 
+// And recieve the message from view or component
+// Using session('key')
+@if(session()->has('message'))
+<div class="fixed top-0 transform -translate-x-1/2 bg-laravel text-white px-48 py-3">
+<p>
+    {{session(message)}}
+</p>
+</div>
+@endif
+```
 
 ### 9. Alpine.js For Message Removal
 

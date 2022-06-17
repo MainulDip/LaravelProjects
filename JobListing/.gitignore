@@ -13,3 +13,5 @@ yarn-error.log
 /.idea
 /.vscode
 _laragigs_theme/
+package-lock.json
+mix-manifest.json
