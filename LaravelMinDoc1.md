@@ -404,3 +404,4 @@ public function scopefilter($query, array $filters){
         }
     }
 ```
+> Next: See the LaravelMinDoc2.md

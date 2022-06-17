@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Unique;
 
 class ListingController extends Controller
 {
@@ -37,12 +39,21 @@ class ListingController extends Controller
     }
 
     // Store/Save newly submitten Job Creation Data
-    public function store(Request $request){
+    public function store(Request $request, Listing $listing){
         // dd($request);
         $formFields = $request->validate([
             'title' => 'required',
-            // 'company' => ['required', Rule::unique('listings', 'company')],
-
+            'company' => 'required', //['required', Rule::unique(['listings', 'company'])],
+            'location' => 'required',
+            'website' => 'required',
+            'email' => 'required',
+            'tags' => 'required',
+            'description' => 'required'
         ]);
+
+        // Listing::creating($formFields);
+        $listing->create($formFields);
+
+        return redirect('/');
     }
 }

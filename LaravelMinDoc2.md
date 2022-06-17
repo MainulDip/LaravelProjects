@@ -104,10 +104,33 @@ NB: Sending Form data over POST method requires @csrf directive inside form tag.
 
 ### 6. Validation, Request & Store Listing
 docs: https://laravel.com/docs/9.x/requests && https://laravel.com/docs/9.x/validation
+> The store function inside controller
 
+```php
+    public function store(Request $request, Listing $listing){
+        // dd($request);
+        $formFields = $request->validate([
+            'title' => 'required',
+            'company' => 'required', //['required', Rule::unique(['listings', 'company'])],
+            'location' => 'required',
+            'website' => 'required',
+            'email' => 'required',
+            'tags' => 'required',
+            'description' => 'required'
+        ]);
+
+        // Listing::creating($formFields);
+        $listing->create($formFields);
+
+        return redirect('/');
+    }
+```
 
 ### 7. Mass Assignment Rule
-
+For mass assaignment, it's required to whitelist entries by adding the $fillable protected array in the specific model
+```php
+protected $fillable = ['title', 'company', 'location', 'email', 'website', 'tags','description' ];
+```
 
 ### 8. Flash Messages
 
