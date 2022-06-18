@@ -11,18 +11,6 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <script src="//unpkg.com/alpinejs" defer></script>
-  {{-- <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              laravel: '#ef3b2d',
-            },
-          },
-        },
-      }
-  </script> --}}
   <title>LaraGigs | Find Laravel Jobs & Projects</title>
 </head>
 
