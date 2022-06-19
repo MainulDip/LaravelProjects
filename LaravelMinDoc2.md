@@ -153,7 +153,13 @@ return redirect('/')->with('message', 'Listing Created Successfully');
 
 
 ### 10. Keep Old Data In Form
+```php
+<input ... value="{{old('name')}}"/>
 
+<textarea ...>
+{{old('description')}}
+</textarea>
+```
 
 ### 11. Pagination
 
