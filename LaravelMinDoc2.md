@@ -162,7 +162,21 @@ return redirect('/')->with('message', 'Listing Created Successfully');
 ```
 
 ### 11. Pagination
+```php
+// inside controller's index function use paginate()
+    public function index(Request $request) {
+        return view('listings.index', [
+            'heading' => 'Latest Listing',
+            'listings' => Listing::latest()->filter(
+                request(['tag', 'search'])
+            )->paginate(2),
+        ]);
 
+
+// Showing Page Link
+{{$listings->links()}}
+
+```
 
 ### 12. File Upload
 
