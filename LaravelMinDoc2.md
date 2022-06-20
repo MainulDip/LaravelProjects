@@ -178,6 +178,8 @@ return redirect('/')->with('message', 'Listing Created Successfully');
 
 ```
 
+NB: For custom pagination publish the specefic vendor using "php arisan vendor:publish" and select. Look docs for more info
+
 ### 12. File Upload
 
 
