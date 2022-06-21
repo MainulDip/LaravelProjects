@@ -181,7 +181,22 @@ return redirect('/')->with('message', 'Listing Created Successfully');
 NB: For custom pagination publish the specefic vendor using "php arisan vendor:publish" and select. Look docs for more info
 
 ### 12. File Upload
+In controller if called "$request->file('logo')->store()", it will store the file inside storage/app directory and return the storage location path as string.
+> Change ./config/filesystem.php to apply custom file storage or making public
 
+```php
+// make html for acceptable for fie upload by using multipart tag
+// then edit the listing migration table and add
+$table->string('logo')->nullable();
+
+// then from controller check if file exists then store the file
+if($request->hasFile('logo')){
+    $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+}
+```
+Check if file in storage folder as the filesystem.php config file
+
+> To make ./storage directories file public, need to run "php artisan storage:link"
 
 ### 13. Edit Listing
 

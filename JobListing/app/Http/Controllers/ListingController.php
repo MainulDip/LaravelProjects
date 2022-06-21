@@ -21,7 +21,7 @@ class ListingController extends Controller
             'heading' => 'Latest Listing',
             'listings' => Listing::latest()->filter(
                 request(['tag', 'search'])
-            )->paginate(2),
+            )->paginate(10),
         ]);
     }
 
@@ -40,7 +40,7 @@ class ListingController extends Controller
 
     // Store/Save newly submitten Job Creation Data
     public function store(Request $request, Listing $listing){
-        // dd($request);
+        // dd($request->file('logo'));
         $formFields = $request->validate([
             'title' => 'required',
             'company' => 'required', //['required', Rule::unique(['listings', 'company'])],
@@ -51,6 +51,10 @@ class ListingController extends Controller
             'description' => 'required'
         ]);
 
+        if($request->hasFile('logo')){
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
+        // dd($formFields['logo']);
         // Listing::creating($formFields);
         $listing->create($formFields);
 
