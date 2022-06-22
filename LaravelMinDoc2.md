@@ -203,7 +203,12 @@ Check if file in storage folder as the filesystem.php config file
 > To make ./storage directories file public, need to run "php artisan storage:link"
 
 ### 13. Edit Listing
+```php
+// as html doesn't support PUT request, laravel use @method directives
 
+@csrf
+@method('PUT')
+```
 
 ### 14. Delete Listing
 

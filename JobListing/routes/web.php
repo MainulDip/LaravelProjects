@@ -42,6 +42,9 @@ Route::post('/listings', [ListingController::class, 'store']);
 // Route Model Binding Single Listing
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
+// Show Edit Form
+Route::get('listings/{listing}/edit', [ListingController::class, 'edit']);
+
 Route::get('/hello', function () {
     return response('Hello World', 200)
         ->header('Content-Type', 'text/plain')
