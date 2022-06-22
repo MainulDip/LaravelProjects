@@ -193,6 +193,10 @@ $table->string('logo')->nullable();
 if($request->hasFile('logo')){
     $formFields['logo'] = $request->file('logo')->store('logos', 'public');
 }
+
+// Show image from view or component
+
+src="{{ $listing->logo ? asset('storage/' . $listing->logo) : asset('images/no-image.png') }}"
 ```
 Check if file in storage folder as the filesystem.php config file
 
