@@ -10,19 +10,38 @@ use Illuminate\Validation\Rules\Unique;
 class ListingController extends Controller
 {
     // Show all listings
-    public function index(Request $request)
+    public function index(Request $request, Listing $listing)
     {
         // echo "hello";
         // echo $request->getRequestUri();
         // echo request('DOCUMENT_ROOT');
         // echo $request->search;
         // var_dump($request->server);
-        // dd($request);
+        // echo request(['tag', 'search']) != null;
+        // dd(request(['tag', 'search']));
+        if(request(['tag', 'search']) != null){
+
+            return view('listings.index', [
+                'heading' => 'Latest Listing',
+                'listings' => $listing -> latest()
+                    -> filter(request(['tag', 'search']))
+                    -> paginate(20)
+                    // -> get()
+                    // ->sortDesc()
+                    
+            ]);
+
+        }
         return view('listings.index', [
             'heading' => 'Latest Listing',
-            'listings' => Listing::latest()
-                ->filter(request(['tag', 'search']))
-                ->paginate(10),
+            'listings' => $listing -> latest()
+                // -> filter(request(['tag', 'search']))
+                -> paginate(20)
+                // -> sortDesc()
+                // -> all()
+                // -> sortDesc()
+                // ->sortDesc()
+                
         ]);
     }
 
@@ -92,7 +111,7 @@ class ListingController extends Controller
                 ->file('logo')
                 ->store('logos', 'public');
         }
-        dd($formFields);
+        // dd($formFields);
         // Listing::creating($formFields);
         $listing->update($formFields);
 

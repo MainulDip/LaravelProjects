@@ -41,7 +41,7 @@
         <x-card class="mt-4 p-2 flex space-x-6">
             <a href="/listings/{{$listing->id}}/edit">
             <i class="fa-solid fa-pencil mr-2"></i>
-            Edit
+            Edit Entry
             </a>
         </x-card>
     </div>

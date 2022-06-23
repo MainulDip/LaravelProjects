@@ -213,7 +213,7 @@ Check if file in storage folder as the filesystem.php config file
 Route::put('/listings/{listing}', [ListingController::class, 'update'])
 
 
-// Update to accept png and other image type
+// Update to accept file size more than 2MB on php.ini
 ```
 
 
