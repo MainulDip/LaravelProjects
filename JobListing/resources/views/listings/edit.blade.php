@@ -86,7 +86,7 @@
                     <label for="logo" class="inline-block text-lg mb-2">
                         Company Logo
                     </label>
-                    <input type="file" class="border border-gray-200 rounded p-2 w-full"
+                    <input type="file" value="{{$listing->logo}}" accept="image/*" class="border border-gray-200 rounded p-2 w-full"
                         name="logo" />
 
                         <img class="w-48 mr-6 mb-6" src="{{ $listing->logo ? asset('storage/' . $listing->logo) : asset('images/no-image.png') }}" alt="" />

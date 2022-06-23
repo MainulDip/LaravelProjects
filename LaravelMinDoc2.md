@@ -208,7 +208,15 @@ Check if file in storage folder as the filesystem.php config file
 
 @csrf
 @method('PUT')
+
+// Then in router, we can receive the put request
+Route::put('/listings/{listing}', [ListingController::class, 'update'])
+
+
+// Update to accept png and other image type
 ```
+
+
 
 ### 14. Delete Listing
 

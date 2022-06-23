@@ -45,6 +45,10 @@ Route::get('/listings/{listing}', [ListingController::class, 'show']);
 // Show Edit Form
 Route::get('listings/{listing}/edit', [ListingController::class, 'edit']);
 
+
+// Edit Submit To Update
+Route::put('/listings/{listing}', [ListingController::class, 'update']);
+
 Route::get('/hello', function () {
     return response('Hello World', 200)
         ->header('Content-Type', 'text/plain')

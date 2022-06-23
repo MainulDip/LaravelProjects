@@ -10,7 +10,8 @@ use Illuminate\Validation\Rules\Unique;
 class ListingController extends Controller
 {
     // Show all listings
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         // echo "hello";
         // echo $request->getRequestUri();
         // echo request('DOCUMENT_ROOT');
@@ -19,40 +20,45 @@ class ListingController extends Controller
         // dd($request);
         return view('listings.index', [
             'heading' => 'Latest Listing',
-            'listings' => Listing::latest()->filter(
-                request(['tag', 'search'])
-            )->paginate(10),
+            'listings' => Listing::latest()
+                ->filter(request(['tag', 'search']))
+                ->paginate(10),
         ]);
     }
 
     // Show single listing
-    public function show(Listing $listing) {
+    public function show(Listing $listing)
+    {
         return view('listings.show', [
             'heading' => 'Latest Listing',
-            'listing' => $listing
+            'listing' => $listing,
         ]);
     }
 
     // Create Jobs
-    public function create(){
+    public function create()
+    {
         return view('listings.create');
     }
 
     // Store/Save newly submitten Job Creation Data
-    public function store(Request $request, Listing $listing){
+    public function store(Request $request, Listing $listing)
+    {
         // dd($request->file('logo'));
         $formFields = $request->validate([
             'title' => 'required',
             'company' => 'required', //['required', Rule::unique(['listings', 'company'])],
-            'location' => 'required', 
+            'location' => 'required',
             'website' => 'required',
             'email' => 'required',
             'tags' => 'required',
-            'description' => 'required'
+            'description' => 'required',
         ]);
 
-        if($request->hasFile('logo')){
-            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        if ($request->hasFile('logo')) {
+            $formFields['logo'] = $request
+                ->file('logo')
+                ->store('logos', 'public');
         }
         // dd($formFields['logo']);
         // Listing::creating($formFields);
@@ -62,9 +68,34 @@ class ListingController extends Controller
     }
 
     // Show Edit Form
-    public function edit(Listing $listing){
+    public function edit(Listing $listing)
+    {
         // dd($listing);
         return view('listings.edit', ['listing' => $listing]);
     }
 
+    // Update Edit Form
+    public function update(Request $request, Listing $listing)
+    {
+        $formFields = $request->validate([
+            'title' => 'required',
+            'company' => 'required', //['required', Rule::unique(['listings', 'company'])],
+            'location' => 'required',
+            'website' => 'required',
+            'email' => 'required',
+            'tags' => 'required',
+            'description' => 'required',
+        ]);
+
+        if ($request->hasFile('logo')) {
+            $formFields['logo'] = $request
+                ->file('logo')
+                ->store('logos', 'public');
+        }
+        dd($formFields);
+        // Listing::creating($formFields);
+        $listing->update($formFields);
+
+        return redirect('/')->with('message', 'Listing Updated Successfully');
+    }
 }
