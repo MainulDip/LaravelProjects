@@ -43,6 +43,17 @@
             <i class="fa-solid fa-pencil mr-2"></i>
             Edit Entry
             </a>
+
+            <div class="">
+                <form method="POST" class="" action="/listings/{{$listing->id}}">
+                    @csrf
+                    @method('DELETE')
+
+                    <button class="text-red-500">
+                        <i class="fa-solid fa-trash"></i> Delete
+                    </button>
+                </form>
+            </div>
         </x-card>
     </div>
 </x-layout>

@@ -219,7 +219,25 @@ Route::put('/listings/{listing}', [ListingController::class, 'update'])
 
 
 ### 14. Delete Listing
+```php
+<form method="POST" class="" action="/listings/{{$listing->id}}">
+    @csrf
+    @method('DELETE') 
+    <button>Delete</button>
+</form>
 
+// then add route
+// Delete Listing
+Route::delete('/listings/{listing}', [ListingController::class, 'destroy']);
+
+// then add controller method
+// Delete Listing
+public function destroy(Listing $listing){
+    // dd($listing);
+    $listing->delete();
+    return redirect('/')->with('message', 'Listing Deleted Successfully');
+}
+```
 
 ### 15. User Registration
 
