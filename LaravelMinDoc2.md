@@ -240,7 +240,7 @@ public function destroy(Listing $listing){
 ```
 
 ### 15. User Registration
-
+Laravel comes with a User Model, we just need to make the UserController by "php artisan make:controller UserController"
 
 ### 16. Auth Links
 
