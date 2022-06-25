@@ -285,6 +285,15 @@ class UserController extends Controller
 ```
 
 ### 16. Auth Links
+```php
+// Welcome message to login user in view
+@auth
+Welcome {{auth()->user()->name}}
+@else
+// Show not logged-in message
+@endauth
+
+```
 
 
 ### 17. User Logout
