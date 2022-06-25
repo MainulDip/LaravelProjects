@@ -242,6 +242,48 @@ public function destroy(Listing $listing){
 ### 15. User Registration
 Laravel comes with a User Model, we just need to make the UserController by "php artisan make:controller UserController"
 
+```php
+// make changes in route to accept request
+// Show Register Create Form
+Route::get('/register', [UserController::class, 'create']);
+
+// Create New User
+Route::post('/users', [UserController::class, 'store']);
+
+// Receive routes from controller
+class UserController extends Controller
+{
+    // Show Register From
+    public function create(Request $request){
+        // dd($request);
+        return view('users.register');
+    }
+
+    // Store new user
+    public function store(Request $request){
+        $formFields = $request->validate([
+            'name' => ['required', 'min:3'],
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'password' => ['required', 'confirmed', 'min:6']
+        ]);
+
+        // Hash Password
+        $formFields['password'] = bcrypt($formFields['password']);
+
+        
+        // Create User
+        $user = User::create($formFields);
+
+        // Login
+        auth()->login($user);
+
+        return redirect('/')->with('message', 'User Created and logged in');
+    }
+}
+
+// Make necessery form on view
+```
+
 ### 16. Auth Links
 
 
@@ -266,4 +308,4 @@ Laravel comes with a User Model, we just need to make the UserController by "php
 ### 23. Manage Listings Page
 
 
-### 24. User Authorization
+### 24. User Authorization 
