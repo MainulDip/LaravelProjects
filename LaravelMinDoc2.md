@@ -297,10 +297,36 @@ Welcome {{auth()->user()->name}}
 
 
 ### 17. User Logout
+```php
+    public function logout(User $user, Request $request){
+        // auth()->logout();
+        auth()->logout($user);
 
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+        
+        return redirect('/')->with('message', 'User Logged Out');
+    }
+```
 
 ### 18. User Login
+```php
+    // Authentication for login
+    public function authenticate(Request $request){
+        $formFields = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ]);
 
+        if(auth()->attempt($formFields)){
+            $request->session()->regenerate();
+
+            return redirect('/')->with('message', 'You\'re logged in');
+        }
+
+        return back()->withErrors(['email'=>'Invalid'])->onlyInput('email');
+    }
+```
 
 ### 19. Auth & Guest Middleware
 
