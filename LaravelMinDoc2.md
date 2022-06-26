@@ -346,9 +346,42 @@ middleware/Authenticate.php can be customized
 
 ### 20. Relationships
 
+```php
+//  inside migrations/....listing add new row describing relationship
+$table->foreignId('user_id')->constrained()->onDelete('cascade');
+// onDelete('cascade') will delete all listing if user is deleted
+
+// change seeders data to keep track with newly created table structure
+$user = User::factory()->create(
+            ['name' => 'John Doe',
+            'email' => 'doe@gmail.com']
+        );
+
+
+Listing::factory(7)->create((
+            [
+                'user_id' => $user->id
+            ]
+        ));
+
+// change Listing model to describe relationship
+// User Relationship
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+// change User model to describe relationship
+// Listing Relationship
+    public function listings() {
+        return $this->hasMany(Listing::class, 'user_id');
+    }
+```
 
 ### 21. Tinker Tinkering
-
+after defining relationship on both models, use tinker to quickly check things
+```sh
+\App\Models\Listing::first()
+```
 
 ### 22. Add Ownership to Listings
 
