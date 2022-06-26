@@ -329,6 +329,19 @@ Welcome {{auth()->user()->name}}
 ```
 
 ### 19. Auth & Guest Middleware
+```php
+// make a route authentication protected
+Route::get('/listings/create',[ListingController::class, 'create'])->middleware('auth');
+
+// create a 'login' named route that can be redirected by app/Http/middleware/Authenticate.php
+Route::get('/login', [UserController::class, 'login'])->name('login');
+
+// Using guest middleware prevent logged in users access in login, register and other routes
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+```
+middleware/Authenticate.php can be customized
+
+> Modify app/Providers/RouteServiceProvider.php to change the app's default home route config by changing to "public const HOME = '/';"
 
 
 ### 20. Relationships

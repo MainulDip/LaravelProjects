@@ -35,39 +35,39 @@ Route::get('/', [ListingController::class, 'index']);
 // });
 
 // Create job form
-Route::get('/listings/create',[ListingController::class, 'create']);
+Route::get('/listings/create',[ListingController::class, 'create'])->middleware('auth');
 
 // Storing newly submittend form data for job creation over POST
-Route::post('/listings', [ListingController::class, 'store']);
+Route::post('/listings', [ListingController::class, 'store'])->middleware('auth');
 
 // Route Model Binding Single Listing
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
-// Show Edit Form
-Route::get('listings/{listing}/edit', [ListingController::class, 'edit']);
+// Show Listing Edit Form
+Route::get('listings/{listing}/edit', [ListingController::class, 'edit'])->middleware('auth');
 
 
 // Edit Submit To Update
-Route::put('/listings/{listing}', [ListingController::class, 'update']);
+Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth');
 
 // Delete Listing
-Route::delete('/listings/{listing}', [ListingController::class, 'destroy']);
+Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
 
-// Show Register Create Form
-Route::get('/register', [UserController::class, 'create']);
+// Show Register User Create Form
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 
 // Create New User
-Route::post('/users', [UserController::class, 'store']);
+Route::post('/users', [UserController::class, 'store'])->middleware('guest');
 
 // Logout
-Route::post('/logout', [UserController::class, 'logout']);
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 // Show Login Form
-Route::get('/login', [UserController::class, 'login']);
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 
 
 // Login User
-Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+Route::post('/users/authenticate', [UserController::class, 'authenticate'])->middleware('guest');
 
 Route::get('/hello', function () {
     return response('Hello World', 200)
@@ -86,3 +86,5 @@ Route::get('/search', function (Request $request) {
     echo $request->name . ' ' . $request->city;
     dd($request);
 });
+
+
