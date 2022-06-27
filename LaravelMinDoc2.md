@@ -381,10 +381,23 @@ Listing::factory(7)->create((
 after defining relationship on both models, use tinker to quickly check things
 ```sh
 \App\Models\Listing::first()
+\App\Models\Listing::all()
+\App\Models\Listing::find(4)->user
+$user = \App\Models\User::first()
+$user->listings
 ```
 
 ### 22. Add Ownership to Listings
+```php
+// store user_id inside ListingController create method
+$formFields['user_id'] = auth()->id();
 
+
+// create new listing and check in php artisan tinker
+$user = \App\Models\User::find(2)
+
+$user->listings()
+```
 
 ### 23. Manage Listings Page
 

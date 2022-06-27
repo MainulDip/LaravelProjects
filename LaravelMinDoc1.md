@@ -406,4 +406,4 @@ public function scopefilter($query, array $filters){
 ```
 NB: See docs for model method chaining or whatever like this
 
-> Next: See the LaravelMinDoc2.md or official docs 
+> Next: See the LaravelMinDoc2.md or official docs and also Relational Models
