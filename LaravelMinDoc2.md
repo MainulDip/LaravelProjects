@@ -346,6 +346,8 @@ middleware/Authenticate.php can be customized
 
 ### 20. Relationships
 
+> Find More Inside Docs
+
 ```php
 //  inside migrations/....listing add new row describing relationship
 $table->foreignId('user_id')->constrained()->onDelete('cascade');
@@ -400,6 +402,40 @@ $user->listings()
 ```
 
 ### 23. Manage Listings Page
+```php
+// create a new route
+// Manage Listings
+Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
 
+
+// then write controller method
+// Manage Listing
+public function manage()
+{
+    return view('listings.manage', [
+        'listings' => auth()
+            ->user()
+            ->listings()
+            ->get(),
+    ]);
+}
+
+// applying inside view
+@unless($listings->isEmpty())
+@foreach ($listings as $listing)
+{{ $listing->title }}
+.......
+@endforeach
+@endunless
+
+```
 
 ### 24. User Authorization 
+```php
+// inside ListingController checke on edit and delete method about the authorigation confirmation
+// Make sure if logged in user is the owner
+if( $listing->user_id != auth()->id()){
+    abort(403, 'Unauthorized Action');
+}
+```
+Wooo Great, Happy Coding :)

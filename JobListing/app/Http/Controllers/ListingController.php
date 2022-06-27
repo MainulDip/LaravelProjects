@@ -19,29 +19,27 @@ class ListingController extends Controller
         // var_dump($request->server);
         // echo request(['tag', 'search']) != null;
         // dd(request(['tag', 'search']));
-        if(request(['tag', 'search']) != null){
-
+        if (request(['tag', 'search']) != null) {
             return view('listings.index', [
                 'heading' => 'Latest Listing',
-                'listings' => $listing -> latest()
-                    -> filter(request(['tag', 'search']))
-                    -> paginate(20)
-                    // -> get()
-                    // ->sortDesc()
-                    
+                'listings' => $listing
+                    ->latest()
+                    ->filter(request(['tag', 'search']))
+                    ->paginate(20),
+                // -> get()
+                // ->sortDesc()
             ]);
-
         }
         return view('listings.index', [
             'heading' => 'Latest Listing',
-            'listings' => $listing -> latest()
+            'listings' => $listing
+                ->latest()
                 // -> filter(request(['tag', 'search']))
-                -> paginate(20)
-                // -> sortDesc()
-                // -> all()
-                // -> sortDesc()
-                // ->sortDesc()
-                
+                ->paginate(20),
+            // -> sortDesc()
+            // -> all()
+            // -> sortDesc()
+            // ->sortDesc()
         ]);
     }
 
@@ -100,6 +98,11 @@ class ListingController extends Controller
     // Update Edit Form
     public function update(Request $request, Listing $listing)
     {
+        // Make sure if logged in user is the owner
+        if ($listing->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+
         $formFields = $request->validate([
             'title' => 'required',
             'company' => 'required', //['required', Rule::unique(['listings', 'company'])],
@@ -123,9 +126,25 @@ class ListingController extends Controller
     }
 
     // Delete Listing
-    public function destroy(Listing $listing){
+    public function destroy(Listing $listing)
+    {
         // dd($listing);
+        // Make sure if logged in user is the owner
+        if ($listing->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
         $listing->delete();
         return redirect('/')->with('message', 'Listing Deleted Successfully');
+    }
+
+    // Manage Listing
+    public function manage()
+    {
+        return view('listings.manage', [
+            'listings' => auth()
+                ->user()
+                ->listings()
+                ->get(),
+        ]);
     }
 }

@@ -40,6 +40,9 @@ Route::get('/listings/create',[ListingController::class, 'create'])->middleware(
 // Storing newly submittend form data for job creation over POST
 Route::post('/listings', [ListingController::class, 'store'])->middleware('auth');
 
+// Manage Listings
+Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
+
 // Route Model Binding Single Listing
 Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
@@ -68,6 +71,8 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 
 // Login User
 Route::post('/users/authenticate', [UserController::class, 'authenticate'])->middleware('guest');
+
+
 
 Route::get('/hello', function () {
     return response('Hello World', 200)
