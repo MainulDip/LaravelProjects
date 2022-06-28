@@ -74,22 +74,22 @@ Route::post('/users/authenticate', [UserController::class, 'authenticate'])->mid
 
 
 
-Route::get('/hello', function () {
-    return response('Hello World', 200)
-        ->header('Content-Type', 'text/plain')
-        ->header('foo', 'bar');
-});
+// Route::get('/hello', function () {
+//     return response('Hello World', 200)
+//         ->header('Content-Type', 'text/plain')
+//         ->header('foo', 'bar');
+// });
 
-// http://localhost:8000/post/12
-Route::get('/post/{id}', function ($id) {
-    // ddd($id); // die and dump and debug
-    return response('Post ' . $id);
-})->where('id', '[0-9]+'); // checking url params by regex
+// // http://localhost:8000/post/12
+// Route::get('/post/{id}', function ($id) {
+//     // ddd($id); // die and dump and debug
+//     return response('Post ' . $id);
+// })->where('id', '[0-9]+'); // checking url params by regex
 
-// localhost:8000/search?name=SomeName&city=Where
-Route::get('/search', function (Request $request) {
-    echo $request->name . ' ' . $request->city;
-    dd($request);
-});
+// // localhost:8000/search?name=SomeName&city=Where
+// Route::get('/search', function (Request $request) {
+//     echo $request->name . ' ' . $request->city;
+//     dd($request);
+// });
 
 

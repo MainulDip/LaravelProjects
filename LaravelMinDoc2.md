@@ -346,7 +346,7 @@ middleware/Authenticate.php can be customized
 
 ### 20. Relationships
 
-> Find More Inside Docs
+> Find More Inside Docs : https://laravel.com/docs/9.x/eloquent-relationships
 
 ```php
 //  inside migrations/....listing add new row describing relationship
